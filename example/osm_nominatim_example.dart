@@ -16,8 +16,8 @@ Future main() async {
   print('');
 
   final reverseSearchResult = await Nominatim.reverseSearch(
-    lat: '50',
-    lon: '6',
+    lat: 50.1,
+    lon: 6.2,
     addressDetails: true,
     extraTags: true,
     nameDetails: true,

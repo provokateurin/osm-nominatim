@@ -190,8 +190,8 @@ class Nominatim {
   ///	</tbody>
   /// </table>
   static Future<Place> reverseSearch({
-    String lat,
-    String lon,
+    double lat,
+    double lon,
     String osmType,
     int osmId,
     bool addressDetails = false,
@@ -224,8 +224,8 @@ class Nominatim {
       '/reverse',
       {
         'format': 'jsonv2',
-        if (lat != null) 'lat': lat,
-        if (lon != null) 'lon': lon,
+        if (lat != null) 'lat': lat.toString(),
+        if (lon != null) 'lon': lon.toString(),
         if (osmType != null) 'osm_type': osmType,
         if (osmId != null) 'osm_id': osmId.toString(),
         if (addressDetails) 'addressdetails': '1',
@@ -269,12 +269,14 @@ class Place {
         boundingBox: (json['boundingbox'] as List<dynamic>)
             .map<String>((e) => e as String)
             .toList(),
-        lat: json['lat'] as String,
-        lon: json['lon'] as String,
+        lat: double.parse(json['lat'] as String),
+        lon: double.parse(json['lon'] as String),
         displayName: json['display_name'] as String,
         category: json['category'] as String,
         type: json['type'] as String,
-        importance: json['importance'] as double,
+        importance: json['importance'] is int
+            ? (json['importance'] as int).toDouble()
+            : json['importance'] as double,
         icon: json['icon'] != null ? json['icon'] as String : null,
         address: json['address'] != null
             ? json['address'] as Map<String, dynamic>
@@ -302,10 +304,10 @@ class Place {
   final List<String> boundingBox;
 
   /// Latitude of the centroid of the object
-  final String lat;
+  final double lat;
 
   /// Longitude of the centroid of the object
-  final String lon;
+  final double lon;
 
   /// Full comma-separated address
   final String displayName;
