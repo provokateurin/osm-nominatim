@@ -50,21 +50,21 @@ class Nominatim {
   /// amenity only search is allowed. In this case, give the special keyword for
   /// the amenity in square brackets, e.g. `[pub]`.
   static Future<List<Place>> searchByName({
-    String query,
-    String street,
-    String city,
-    String county,
-    String state,
-    String country,
-    String postalCode,
+    String? query,
+    String? street,
+    String? city,
+    String? county,
+    String? state,
+    String? country,
+    String? postalCode,
     bool addressDetails = false,
     bool extraTags = false,
     bool nameDetails = false,
-    String language,
-    List<String> countryCodes,
-    List<String> excludePlaceIds,
+    String? language,
+    List<String>? countryCodes,
+    List<String>? excludePlaceIds,
     int limit = 10,
-    ViewBox viewBox,
+    ViewBox? viewBox,
   }) async {
     if (query == null) {
       assert(
@@ -190,14 +190,14 @@ class Nominatim {
   ///	</tbody>
   /// </table>
   static Future<Place> reverseSearch({
-    double lat,
-    double lon,
-    String osmType,
-    int osmId,
+    double? lat,
+    double? lon,
+    String? osmType,
+    int? osmId,
     bool addressDetails = false,
     bool extraTags = false,
     bool nameDetails = false,
-    String language,
+    String? language,
     int zoom = 18,
   }) async {
     final notNullParameters =
@@ -244,17 +244,17 @@ class Nominatim {
 class Place {
   // ignore: public_member_api_docs
   Place({
-    this.placeId,
-    this.osmType,
-    this.osmId,
-    this.boundingBox,
-    this.lat,
-    this.lon,
-    this.displayName,
-    this.placeRank,
-    this.category,
-    this.type,
-    this.importance,
+    required this.placeId,
+    required this.osmType,
+    required this.osmId,
+    required this.boundingBox,
+    required this.lat,
+    required this.lon,
+    required this.displayName,
+    required this.placeRank,
+    required this.category,
+    required this.type,
+    required this.importance,
     this.icon,
     this.address,
     this.extraTags,
@@ -272,6 +272,7 @@ class Place {
         lat: double.parse(json['lat'] as String),
         lon: double.parse(json['lon'] as String),
         displayName: json['display_name'] as String,
+        placeRank: json['place_rank'] as int,
         category: json['category'] as String,
         type: json['type'] as String,
         importance: json['importance'] is int
@@ -325,20 +326,20 @@ class Place {
   final double importance;
 
   /// Link to class icon (if available)
-  final String icon;
+  final String? icon;
 
   /// Map of address details
   /// Only with [Nominatim.searchByName(addressDetails: true)]
   /// See https://nominatim.org/release-docs/latest/api/Output/#addressdetails
-  final Map<String, dynamic> address;
+  final Map<String, dynamic>? address;
 
   /// Map with additional useful tags like website or max speed
   /// Only with [Nominatim.searchByName(extraTags: true)]
-  final Map<String, dynamic> extraTags;
+  final Map<String, dynamic>? extraTags;
 
   /// Map with full list of available names including ref etc.
   /// Only with [Nominatim.searchByName(nameDetails: true)]
-  final Map<String, dynamic> nameDetails;
+  final Map<String, dynamic>? nameDetails;
 }
 
 /// View box for searching
