@@ -116,7 +116,7 @@ class Nominatim {
         if (viewBox != null) 'bounded': '1',
       },
     );
-    final response = await http.get(uri.toString());
+    final response = await http.get(uri);
     final data = json.decode(response.body) as List<dynamic>;
     return data
         .map<Place>((p) => Place.fromJson(p as Map<String, dynamic>))
@@ -234,7 +234,7 @@ class Nominatim {
         if (language != null) 'accept-language': language,
       },
     );
-    final response = await http.get(uri.toString());
+    final response = await http.get(uri);
     final data = json.decode(response.body);
     return Place.fromJson(data as Map<String, dynamic>);
   }
