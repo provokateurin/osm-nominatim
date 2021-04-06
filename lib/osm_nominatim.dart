@@ -106,7 +106,7 @@ class Nominatim {
         if (nameDetails) 'namedetails': '1',
         if (language != null) 'accept-language': language,
         if (countryCodes != null && countryCodes.isNotEmpty)
-          'countrycode': countryCodes.join(','),
+          'countrycodes': countryCodes.join(','),
         if (excludePlaceIds != null && excludePlaceIds.isNotEmpty)
           'exclude_place_ids': excludePlaceIds.join(','),
         if (limit != 10) 'limit': limit.toString(),
