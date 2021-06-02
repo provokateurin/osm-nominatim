@@ -235,8 +235,11 @@ class Nominatim {
       },
     );
     final response = await http.get(uri);
-    final data = json.decode(response.body);
-    return Place.fromJson(data as Map<String, dynamic>);
+    final data = json.decode(response.body) as Map<String, dynamic>;
+    if (data['error'] != null) {
+      throw Exception(data['error']);
+    }
+    return Place.fromJson(data);
   }
 }
 

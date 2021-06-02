@@ -1,3 +1,6 @@
+## 2.0.1
+- Fix bug when reverse search returns no result
+
 ## 2.0.0
 
 - Fix country codes typo
