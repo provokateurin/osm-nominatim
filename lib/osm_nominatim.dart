@@ -65,7 +65,7 @@ class Nominatim {
     List<String>? excludePlaceIds,
     int limit = 10,
     ViewBox? viewBox,
-    String? nominatimServer
+    String host = 'nominatim.openstreetmap.org'
   }) async {
     if (query == null) {
       assert(
@@ -91,7 +91,7 @@ class Nominatim {
     assert(limit > 0, 'Limit has to be greater than zero');
     assert(limit <= 50, 'Limit has to be smaller or equals than 50');
     final uri = Uri.https(
-      nominatimServer ?? 'nominatim.openstreetmap.org',
+      host,
       '/search',
       {
         'format': 'jsonv2',
@@ -200,7 +200,7 @@ class Nominatim {
     bool nameDetails = false,
     String? language,
     int zoom = 18,
-    String? nominatimServer
+    String host = 'nominatim.openstreetmap.org'
   }) async {
     final notNullParameters =
         [lat, lon, osmType, osmId].where((e) => e != null).length;
@@ -222,7 +222,7 @@ class Nominatim {
       'Zoom needs to be between 0 and 18',
     );
     final uri = Uri.https(
-      nominatimServer ?? 'nominatim.openstreetmap.org',
+      host,
       '/reverse',
       {
         'format': 'jsonv2',
