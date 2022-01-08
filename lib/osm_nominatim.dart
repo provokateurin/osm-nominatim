@@ -269,8 +269,8 @@ class Place {
   // ignore: public_member_api_docs
   factory Place.fromJson(Map<String, dynamic> json) => Place(
         placeId: json['place_id'] as int,
-        osmType: json['osm_type'] as String,
-        osmId: json['osm_id'] as int,
+        osmType: json['osm_type'] != null ? json['osm_type'] as String : null,
+        osmId: json['osm_id'] != null ? json['osm_id'] as int : null,
         boundingBox: (json['boundingbox'] as List<dynamic>)
             .map<String>((e) => e as String)
             .toList(),
@@ -300,10 +300,10 @@ class Place {
   final int placeId;
 
   /// Reference to the OSM object
-  final String osmType;
+  final String? osmType;
 
   /// Reference to the OSM object
-  final int osmId;
+  final int? osmId;
 
   /// Area of corner coordinates
   /// See https://nominatim.org/release-docs/latest/api/Output/#boundingbox
