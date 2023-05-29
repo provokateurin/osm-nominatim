@@ -1,10 +1,7 @@
-# osm-nominatim
-
 A library to perform OSM Nominatim searches also supporting reverse searches.
 The documentation comments are mostly copied from [https://nominatim.org/release-docs/latest](https://nominatim.org/release-docs/latest).
 
 ## Usage
-
 ```dart
 import 'package:osm_nominatim/osm_nominatim.dart';
 
