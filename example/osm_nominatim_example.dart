@@ -1,6 +1,6 @@
 import 'package:osm_nominatim/osm_nominatim.dart';
 
-Future<void> main() async {
+Future main() async {
   final searchResult = await Nominatim.searchByName(
     query: 'bakery in berlin wedding',
     limit: 1,
