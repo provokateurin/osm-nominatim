@@ -1,3 +1,7 @@
+## 3.0.0
+- Upgrade to Dart 3
+- Add tests
+
 ## 2.0.1
 - Fix bug when reverse search returns no result
 
