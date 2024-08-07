@@ -1,3 +1,6 @@
+## 3.0.1
+- Fixed zoom attribute
+
 ## 3.0.0
 - Upgrade to Dart 3
 - Add tests

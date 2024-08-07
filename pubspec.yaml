@@ -1,6 +1,6 @@
 name: osm_nominatim
 description: A library to perform OSM Nominatim searches also supporting reverse searches
-version: 3.0.0
+version: 3.0.1
 homepage: https://github.com/provokateurin/osm-nominatim
 
 environment:
