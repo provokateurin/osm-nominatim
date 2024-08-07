@@ -49,24 +49,23 @@ class Nominatim {
   /// Using [viewBox] will set the preferred area to find search results and an
   /// amenity only search is allowed. In this case, give the special keyword for
   /// the amenity in square brackets, e.g. `[pub]`.
-  static Future<List<Place>> searchByName({
-    String? query,
-    String? street,
-    String? city,
-    String? county,
-    String? state,
-    String? country,
-    String? postalCode,
-    bool addressDetails = false,
-    bool extraTags = false,
-    bool nameDetails = false,
-    String? language,
-    List<String>? countryCodes,
-    List<String>? excludePlaceIds,
-    int limit = 10,
-    ViewBox? viewBox,
-    String host = 'nominatim.openstreetmap.org'
-  }) async {
+  static Future<List<Place>> searchByName(
+      {String? query,
+      String? street,
+      String? city,
+      String? county,
+      String? state,
+      String? country,
+      String? postalCode,
+      bool addressDetails = false,
+      bool extraTags = false,
+      bool nameDetails = false,
+      String? language,
+      List<String>? countryCodes,
+      List<String>? excludePlaceIds,
+      int limit = 10,
+      ViewBox? viewBox,
+      String host = 'nominatim.openstreetmap.org'}) async {
     if (query == null) {
       assert(
         street != null ||
@@ -190,18 +189,17 @@ class Nominatim {
   ///		</tr>
   ///	</tbody>
   /// </table>
-  static Future<Place> reverseSearch({
-    double? lat,
-    double? lon,
-    String? osmType,
-    int? osmId,
-    bool addressDetails = false,
-    bool extraTags = false,
-    bool nameDetails = false,
-    String? language,
-    int zoom = 18,
-    String host = 'nominatim.openstreetmap.org'
-  }) async {
+  static Future<Place> reverseSearch(
+      {double? lat,
+      double? lon,
+      String? osmType,
+      int? osmId,
+      bool addressDetails = false,
+      bool extraTags = false,
+      bool nameDetails = false,
+      String? language,
+      int zoom = 18,
+      String host = 'nominatim.openstreetmap.org'}) async {
     final notNullParameters =
         [lat, lon, osmType, osmId].where((e) => e != null).length;
     assert(
@@ -226,6 +224,7 @@ class Nominatim {
       '/reverse',
       {
         'format': 'jsonv2',
+        'zoom': zoom.toString(),
         if (lat != null) 'lat': lat.toString(),
         if (lon != null) 'lon': lon.toString(),
         if (osmType != null) 'osm_type': osmType,
