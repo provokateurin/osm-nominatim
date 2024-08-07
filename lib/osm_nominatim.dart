@@ -65,7 +65,7 @@ class Nominatim {
     List<String>? excludePlaceIds,
     int limit = 10,
     ViewBox? viewBox,
-    String host = 'nominatim.openstreetmap.org'
+    String host = 'nominatim.openstreetmap.org',
   }) async {
     if (query == null) {
       assert(
@@ -200,7 +200,7 @@ class Nominatim {
     bool nameDetails = false,
     String? language,
     int zoom = 18,
-    String host = 'nominatim.openstreetmap.org'
+    String host = 'nominatim.openstreetmap.org',
   }) async {
     final notNullParameters =
         [lat, lon, osmType, osmId].where((e) => e != null).length;
@@ -226,6 +226,7 @@ class Nominatim {
       '/reverse',
       {
         'format': 'jsonv2',
+        'zoom': zoom.toString(),
         if (lat != null) 'lat': lat.toString(),
         if (lon != null) 'lon': lon.toString(),
         if (osmType != null) 'osm_type': osmType,
