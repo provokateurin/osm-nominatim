@@ -6,6 +6,9 @@ The documentation comments are mostly copied from [https://nominatim.org/release
 import 'package:osm_nominatim/osm_nominatim.dart';
 
 Future main() async {
+  Nominatim.setDefaultHeaders({
+    'User-Agent': 'osm_nominatim/1.0',
+  });
   final searchResult = await Nominatim.searchByName(
     query: 'bakery in berlin wedding',
     limit: 1,

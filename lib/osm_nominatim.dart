@@ -6,6 +6,26 @@ import 'package:http/http.dart' as http;
 
 /// OSM Nominatim helper
 class Nominatim {
+  // Private static field to hold default headers
+  static Map<String, String>? _defaultHeaders;
+
+  /// Sets default headers to be used in all requests.
+  ///
+  /// These headers will be included in every HTTP request made by the
+  /// [searchByName] and [reverseSearch] methods.
+  ///
+  /// Example:
+  /// ```dart
+  /// Nominatim.setDefaultHeaders({
+  ///   'User-Agent': 'osm_nominatim/1.0',
+  /// });
+  /// ```
+  ///
+  /// **Note**: This method should be called before making any requests.
+  static void setDefaultHeaders(Map<String, String> headers) {
+    _defaultHeaders = Map<String, String>.from(headers);
+  }
+
   /// Searches a places by their name
   ///
   /// Use either [query] with a free form string or any combination of
@@ -117,7 +137,9 @@ class Nominatim {
         if (viewBox != null) 'bounded': '1',
       },
     );
-    final response = await http.get(uri);
+
+    final headers = _defaultHeaders;
+    final response = await http.get(uri, headers: headers);
     final data = json.decode(response.body) as List<dynamic>;
     return data
         .map<Place>((p) => Place.fromJson(p as Map<String, dynamic>))
@@ -237,7 +259,9 @@ class Nominatim {
         if (language != null) 'accept-language': language,
       },
     );
-    final response = await http.get(uri);
+
+    final headers = _defaultHeaders;
+    final response = await http.get(uri, headers: headers);
     final data = json.decode(response.body) as Map<String, dynamic>;
     if (data['error'] != null) {
       throw Exception(data['error']);
