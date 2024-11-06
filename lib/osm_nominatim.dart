@@ -9,6 +9,9 @@ class Nominatim {
   // Private static field to hold default headers
   static Map<String, String>? _defaultHeaders;
 
+  // Private static field to hold the HTTP client
+  static http.Client _client = http.Client();
+
   /// Sets default headers to be used in all requests.
   ///
   /// These headers will be included in every HTTP request made by the
@@ -26,7 +29,33 @@ class Nominatim {
     _defaultHeaders = Map<String, String>.from(headers);
   }
 
-  /// Searches a places by their name
+  /// Sets a custom HTTP client to be used for all requests.
+  ///
+  /// This allows for injecting custom clients, such as mock clients for testing
+  /// or clients with specific configurations.
+  ///
+  /// Example:
+  /// ```dart
+  /// final customClient = http.Client();
+  /// Nominatim.setHttpClient(customClient);
+  /// ```
+  ///
+  /// **Note**: If a custom client is set, it's the caller's responsibility to
+  /// manage its lifecycle, including closing it when it's no longer needed.
+  static void setHttpClient(http.Client client) {
+    _client = client;
+  }
+
+  /// Disposes the current HTTP client.
+  ///
+  /// This should be called when the client is no longer needed to free up
+  /// resources. If a custom client is set via [setHttpClient], ensure it is
+  /// closed appropriately elsewhere.
+  static void disposeHttpClient() {
+    _client.close();
+  }
+
+  /// Searches for places by their name
   ///
   /// Use either [query] with a free form string or any combination of
   /// [street], [city], [county], [state], [country] or [postalCode],
@@ -139,7 +168,7 @@ class Nominatim {
     );
 
     final headers = _defaultHeaders;
-    final response = await http.get(uri, headers: headers);
+    final response = await _client.get(uri, headers: headers);
     final data = json.decode(response.body) as List<dynamic>;
     return data
         .map<Place>((p) => Place.fromJson(p as Map<String, dynamic>))
@@ -261,7 +290,7 @@ class Nominatim {
     );
 
     final headers = _defaultHeaders;
-    final response = await http.get(uri, headers: headers);
+    final response = await _client.get(uri, headers: headers);
     final data = json.decode(response.body) as Map<String, dynamic>;
     if (data['error'] != null) {
       throw Exception(data['error']);

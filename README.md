@@ -6,6 +6,7 @@ The documentation comments are mostly copied from [https://nominatim.org/release
 import 'package:osm_nominatim/osm_nominatim.dart';
 
 Future main() async {
+  Nominatim.setHttpClient(http.Client()); // Optional
   Nominatim.setDefaultHeaders({
     'User-Agent': 'osm_nominatim/1.0',
   });
