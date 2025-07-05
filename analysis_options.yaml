@@ -170,3 +170,4 @@ analyzer:
     strict-casts: true
   errors:
     flutter_style_todos: ignore
+    public_member_api_docs: ignore
