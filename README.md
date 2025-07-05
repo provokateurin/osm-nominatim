@@ -2,7 +2,7 @@
 
 <h1 align="center">
   <br>
-  <img src="https://github.com/provokateurin/osm-nominatim/blob/main/.github/osm_nominatim_logo.png" alt="OSM Nominatim" width="250">
+  <img src="https://github.com/provokateurin/osm-nominatim/blob/master/.github/osm_nominatim_logo.png" alt="OSM Nominatim" width="250">
 </h1>
 
 
