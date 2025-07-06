@@ -3,7 +3,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('Search', () async {
-    final searchResult = await Nominatim.searchByName(
+    final nominatim = Nominatim(userAgent: 'Dart osm_nominatim test');
+    final searchResult = await nominatim.searchByName(
       query: 'bakery in berlin wedding',
       limit: 1,
       addressDetails: true,

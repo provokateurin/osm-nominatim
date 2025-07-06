@@ -1,7 +1,11 @@
 import 'package:osm_nominatim/osm_nominatim.dart';
 
 Future main() async {
-  final searchResult = await Nominatim.searchByName(
+  final nominatim = Nominatim(
+    userAgent: 'Dart osm_nominatim example',
+  );
+
+  final searchResult = await nominatim.searchByName(
     query: 'bakery in berlin wedding',
     limit: 1,
     addressDetails: true,
@@ -15,9 +19,9 @@ Future main() async {
 
   print('');
 
-  final reverseSearchResult = await Nominatim.reverseSearch(
+  final reverseSearchResult = await nominatim.reverseSearch(
     lat: 50.1,
-    lon: 6.2,
+    lon: 6.3,
     addressDetails: true,
     extraTags: true,
     nameDetails: true,

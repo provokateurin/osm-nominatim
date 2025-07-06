@@ -3,9 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   test('Reverse search', () async {
-    final reverseSearchResult = await Nominatim.reverseSearch(
+    final nominatim = Nominatim(userAgent: 'Dart osm_nominatim test');
+    final reverseSearchResult = await nominatim.reverseSearch(
       lat: 50.1,
-      lon: 6.2,
+      lon: 6.3,
       addressDetails: true,
       extraTags: true,
       nameDetails: true,

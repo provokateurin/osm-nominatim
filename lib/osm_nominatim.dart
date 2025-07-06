@@ -6,6 +6,15 @@ import 'package:http/http.dart' as http;
 
 /// OSM Nominatim helper
 class Nominatim {
+  /// Creates a new [Nominatim].
+  ///
+  /// To comply with API usage policies a [userAgent] must be provided.
+  Nominatim({
+    required String userAgent,
+  }) : _userAgent = userAgent;
+
+  final String _userAgent;
+
   /// Searches a places by their name
   ///
   /// Use either [query] with a free form string or any combination of
@@ -49,7 +58,7 @@ class Nominatim {
   /// Using [viewBox] will set the preferred area to find search results and an
   /// amenity only search is allowed. In this case, give the special keyword for
   /// the amenity in square brackets, e.g. `[pub]`.
-  static Future<List<Place>> searchByName({
+  Future<List<Place>> searchByName({
     String? query,
     String? street,
     String? city,
@@ -117,7 +126,12 @@ class Nominatim {
         if (viewBox != null) 'bounded': '1',
       },
     );
-    final response = await http.get(uri);
+    final response = await http.get(
+      uri,
+      headers: {
+        'User-Agent': _userAgent,
+      },
+    );
     final data = json.decode(response.body) as List<dynamic>;
     return data
         .map<Place>((p) => Place.fromJson(p as Map<String, dynamic>))
@@ -190,7 +204,7 @@ class Nominatim {
   ///		</tr>
   ///	</tbody>
   /// </table>
-  static Future<Place> reverseSearch({
+  Future<Place> reverseSearch({
     double? lat,
     double? lon,
     String? osmType,
@@ -237,7 +251,12 @@ class Nominatim {
         if (language != null) 'accept-language': language,
       },
     );
-    final response = await http.get(uri);
+    final response = await http.get(
+      uri,
+      headers: {
+        'User-Agent': _userAgent,
+      },
+    );
     final data = json.decode(response.body) as Map<String, dynamic>;
     if (data['error'] != null) {
       throw Exception(data['error']);
