@@ -1,3 +1,7 @@
+## 4.0.1
+
+- Fix README.md example code
+
 ## 4.0.0
 
 - `Nominatim.searchByName` and `Nominatim.reverseSearch` are no longer static methods and `Nominatim` needs to be
